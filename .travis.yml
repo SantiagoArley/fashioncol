@@ -1,34 +1,14 @@
-language: HTML
-
-HTML
-:
-  - '3.2'
-
 sudo: required
-
-services:
-  - docker
-
-env:
-  global:
-    - CC_TEST_REPORTER_ID=5acc45b5f48d4ca2a5baa0d22ee9a10890b29a76b3ef34a936fdd0ba8c5d7ba8
-    - DB_HOSTNAME=127.0.0.1
-    - DB_DATABASE=slim
-    - DB_USERNAME=root
-    - DB_PASSWORD=
-
-before_install:
-  - docker build -t ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT} .
-
+addons:
+    chrome: stable
+language: node_js
+node_js:
+  - "10.10"
+branches:
+  only:
+  -master
 before_script:
-  - composer install
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter 
-  - chmod +x ./cc-test-reporter 
-  - ./cc-test-reporter before-build
-  - docker images ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT}
-
-script:
-  - vendor/bin/phpunit --coverage-text
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push ${TRAVIS_REPO_SLUG}:${TRAVIS_COMMIT}
-
+  -npm install -g javascript
+ script:
+  -npm install
+  -ng build --aot --prod
