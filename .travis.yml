@@ -3,12 +3,11 @@ addons:
     chrome: stable
 language: node_js
 node_js:
-  - "10.10"
+  - "12.18"
 branches:
   only:
   -master
-before_script:
-  -npm install -g javascript
+
  script:
   -npm install
-  -ng build --aot --prod
+  -ng build --aot --prod 
